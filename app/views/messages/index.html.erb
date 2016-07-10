@@ -4,19 +4,39 @@
   </div>
     
   <div class="panel-body">
-    <% @messages.each do |message| %>
-      <span class="label label-info"><%= message.name %></span>
-      <%= message.body %>
-      <br>
-    <% end %>
+    <table class="table table-condensed">
+      <tr  class="something">
+        <td class="col-md-2">名前</td>
+        <td class="col-md-10">メッセージ</td>
+      </tr>
+      <% @messages.each do |message| %>
+        <tr>
+          <td class="col-md-2"><span class="label label-info"><%= message.name %></span></td>
+          <td class="col-md-10"><%= simple_format(message.body) %></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>
 
-<%= form_for(@message) do |f| %>
-  名前:
-  <%= f.text_field :name %>
+<%= form_for(@message, html:{ class:"form-horizontal" }) do |f| %>
+  <div class="form-group">
+    <label class="col-md-2 control-label">名前:</label>
+      <div class="col-md-10">
+        <%= f.text_field :name, class: "form-control"%>
+      </div>
+  </div>
 
-  内容:
-  <%= f.text_field :body %>
-  <%= f.submit class: "btn btn-sm btn-primary" %>
+  <div class="form-group">
+    <label class="col-md-2 control-label">内容:</label>
+      <div class="col-md-10">
+        <%= f.text_area :body, class: "form-control"%>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+    </div>
+  </div>
 <% end %>
